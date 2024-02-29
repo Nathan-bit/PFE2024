@@ -60,7 +60,7 @@
                     }
                 });
             });
-
+                      
             $('#saveDataBtn').click(function(){
                 saveData(tableData);
             });
@@ -86,6 +86,7 @@
 
             function saveData(data) {
                 var jsonData = data;
+                var dt = [] ;
                 var headers = [];
                 $('#tableContainer thead th').each(function() {
                     headers.push($(this).text());
@@ -95,25 +96,31 @@
                     $(this).find('td').each(function(index) {
                         row[headers[index]] = $(this).text();
                     });
-                    jsonData.push(row);
+                   dt.push(row);
+                  
+                   
                 });
-
-                // Send JSON data to index.js endpoint
-                $.ajax({
-                    url: '/saveData',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify(jsonData),
-                    success: function(response) {
-                        console.log(response); // Log the response from the server
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(error);
-                    }
-                });
+                
+            
+               sendData(dt);
             }
-
         });
+
+        // Define the sendData function outside the scope of other functions
+        function sendData(dt) {
+            $.ajax({
+                url: '/saveData',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(dt),
+                success: function(response) {
+                  console.log(response)
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }
     </script>
 </body>
 </html>

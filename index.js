@@ -6,11 +6,10 @@ const xlsx = require('xlsx');
 const fs = require('fs');
 const csvParser = require('csv-parser');
 const bodyParser = require('body-parser');
-const { Sequelize, DataTypes } = require('sequelize');
+const Etudiant = require('./models/etudiant'); // Import the Sequelize model
+const { Sequelize } = require('sequelize');
 
 app.use(express.static(path.join(__dirname, 'public')));
-
-
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -23,7 +22,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname,  'index.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.post('/upload', upload.single('file'), (req, res) => {
@@ -67,46 +66,23 @@ app.post('/upload', upload.single('file'), (req, res) => {
 
 // Middleware to parse JSON bodies
 app.use(bodyParser.json());
- 
-               // Initialize Sequelize with connection details
-const sequelize = new Sequelize('data', 'root', '', {
-    host: 'localhost',
-    dialect: 'mysql',
-    port: 3306
-   
-  });
-  
-  
 
-
-  app.post('/saveData', async (req, res) => {
+// Handle saving data
+app.post('/saveData', async (req, res) => {
     const jsonData = req.body; // JSON data sent from the client
     try {
-        const modelName = 'Etudiant';
-        const modelFields = {
-            ID: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true }, // Set ID as primary key and auto-increment
-            Nom: Sequelize.STRING,
-            Prenom: Sequelize.STRING,
-            Departement: Sequelize.STRING,
-            Email: Sequelize.STRING,
-            Date: Sequelize.STRING,
-        };
-
-        const Model = sequelize.define(modelName, modelFields);
-
-        // Sync the model with the database
-        await sequelize.sync();
-
         // Update existing records and insert new ones
+        // After defining the model, synchronize it with the database
+                 //  await sequelize.sync();
         for (const data of jsonData) {
             // Find record by primary key (ID)
-            const existingRecord = await Model.findByPk(data.ID);
+            const existingRecord = await Etudiant.findByPk(data.ID);
             if (existingRecord) {
                 // If record exists, update it with new data
                 await existingRecord.update(data);
             } else {
                 // If record doesn't exist, create a new one
-                await Model.create(data);
+                await Etudiant.create(data);
             }
         }
 
@@ -117,9 +93,6 @@ const sequelize = new Sequelize('data', 'root', '', {
         res.status(500).send('Error saving data');
     }
 });
-
-
-
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
