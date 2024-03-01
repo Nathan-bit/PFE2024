@@ -3,30 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Image Gallery</title>
+    <title>Random HTML with Bootstrap and jQuery</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <div id="image-container"></div>
+    <div class="container">
+        <h1>Random Number Generator</h1>
+        <p>Click the button below to generate a random number between 1 and 6:</p>
+        <button id="generateButton" class="btn btn-primary">Generate</button>
+        <p id="randomNumber"></p>
+    </div>
 
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
-        // Define your image array with image paths
-        const images = [
-            "image1.jpg",
-            "image2.jpg",
-            "image3.jpg",
-            // Add more image paths here
-        ];
-
-        // Function to get a random image
-        function getRandomImage() {
-            return images[Math.floor(Math.random() * images.length)];
-        }
-
-        // Get the image container element
-        const imageContainer = document.getElementById("image-container");
-
-        // Display a random image on page load
-        imageContainer.innerHTML = `<img src="${getRandomImage()}" alt="Random Image">`;
+        $(document).ready(function() {
+            // Attach click event to the button
+            $("#generateButton").click(function() {
+                var randomNumber = Math.floor(Math.random() * 6) + 1;
+                $("#randomNumber").text("Random Number: " + randomNumber);
+            });
+        });
     </script>
+
+    <!-- Include Bootstrap JS (optional) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

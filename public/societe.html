@@ -3,62 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Table in Jumbotron</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <title>Another Random Page</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 <body>
-
-
-  <div class="container">
-    <h1 class="display-4">Table in Jumbotron</h1>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Column 1</th>
-          <th>Column 2</th>
-          <th>Column 3</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Data 1</td>
-          <td>Data 2</td>
-          <td>Data 3</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Data 4</td>
-          <td>Data 5</td>
-          <td>Data 6</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Data 7</td>
-          <td>Data 8</td>
-          <td>Data 9</td>
-        </tr>
-        <tr>
-          <th scope="row">4</th>
-          <td>Data 10</td>
-          <td>Data 11</td>
-          <td>Data 12</td>
-        </tr>
-        <tr>
-          <th scope="row">5</th>
-          <td>Data 13</td>
-          <td>Data 14</td>
-          <td>Data 15</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Random Quote Generator</h2>
+    <div class="card">
+      <div class="card-body">
+        <p id="random-quote"></p>
+        <button class="btn btn-success mt-3" id="generate-quote-button">Generate Quote</button>
+      </div>
+    </div>
   </div>
 
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script>
+  $(document).ready(function() {
+    // Array of quotes
+    const quotes = [
+      "The best and most beautiful things in the world cannot be seen or even touched - they must be felt with the heart. - Helen Keller",
+      "Twenty years from now you will be more disappointed by the things that you didn't do than by the ones you did do. So throw off the bowlines, sail away from safe harbor, catch the trade winds in your sails. Explore, Dream, Discover. - Mark Twain",
+      "The only way to do great work is to love what you do. If you haven't found it yet, keep looking. Don't settle. - Steve Jobs"
+    ];
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    // Generate random quote function
+    function generateRandomQuote() {
+      const randomIndex = Math.floor(Math.random() * quotes.length);
+      return quotes[randomIndex];
+    }
 
+    // Generate and display quote on button click
+    $("#generate-quote-button").click(function() {
+      const randomQuote = generateRandomQuote();
+      $("#random-quote").text(randomQuote);
+    });
+  });
+  </script>
 </body>
 </html>
