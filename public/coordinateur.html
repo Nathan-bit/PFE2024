@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Image Gallery</title>
+</head>
+<body>
+    <div id="image-container"></div>
+
+    <script>
+        // Define your image array with image paths
+        const images = [
+            "image1.jpg",
+            "image2.jpg",
+            "image3.jpg",
+            // Add more image paths here
+        ];
+
+        // Function to get a random image
+        function getRandomImage() {
+            return images[Math.floor(Math.random() * images.length)];
+        }
+
+        // Get the image container element
+        const imageContainer = document.getElementById("image-container");
+
+        // Display a random image on page load
+        imageContainer.innerHTML = `<img src="${getRandomImage()}" alt="Random Image">`;
+    </script>
+</body>
+</html>
